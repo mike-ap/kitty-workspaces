@@ -1,0 +1,21 @@
+# If you have no tab_bar.py, rename this file to tab_bar.py.
+# Otherwise merge the imports/startup and draw_title hook into your existing file.
+# Also enable kitty_workspaces/kitty-workspaces.conf as described in that file.
+# Restart Kitty after enabling both files.
+"""Copy into Kitty's config directory to enable workspace tab names."""
+
+import sys
+from pathlib import Path
+
+# Kitty does not necessarily include its configuration directory on sys.path.
+directory = str(Path(__file__).parent)
+if directory not in sys.path:
+    sys.path.insert(0, directory)
+
+import kitty_workspaces  # noqa: E402 — configuration path must be added first
+
+kitty_workspaces.runtime.start()
+
+
+def draw_title(data):
+    return kitty_workspaces.tab_bar.draw_title(data)

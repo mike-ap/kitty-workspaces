@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=https://lefthook.dev/schema.json
+pre-commit:
+  commands:
+    check:
+      # Includes Python, shell, and Markdown formatting checks.
+      run: just check
