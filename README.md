@@ -46,16 +46,12 @@ Installation creates only the `kitty_workspaces/` package and
 
 ### Cheatsheet (defaults)
 
-If you uncomment all optional settings in kitty_workspaces/kitty-workspaces.conf,
+If you uncomment the Kitty Workspaces settings in kitty_workspaces/kitty-workspaces.conf,
 these keybinds are enabled:
 
 ```text
-ctrl+shift+n     set_tab_title
-ctrl+shift+enter launch --location=vsplit --cwd=current
-ctrl+h           neighboring_window left   (also from nvim when vim-kitty-navigator is present)
-ctrl+j           neighboring_window down   (also from nvim when vim-kitty-navigator is present)
-ctrl+k           neighboring_window up     (also from nvim when vim-kitty-navigator is present)
-ctrl+l           neighboring_window right  (also from nvim when vim-kitty-navigator is present)
+ctrl+shift+a         kitten kitty_workspaces/kitten.py next-agent
+ctrl+shift+backspace kitten kitty_workspaces/kitten.py previous-workspace
 ```
 
 Settings belong in `kitty_workspaces.toml` beside `kitty.conf`:
