@@ -149,4 +149,4 @@ done
 # Write the version only after all copies succeed.
 printf '%s\n' "Installed by $project" "version=$version" >"$marker"
 echo "Installed $project $version in $config_dir."
-echo "Follow the configuration file comments to enable $project, then restart Kitty."
+echo "Follow the comments in $package/kitty-workspaces.conf and $config_dir/tab_bar.py.example to enable $project, then restart Kitty."
