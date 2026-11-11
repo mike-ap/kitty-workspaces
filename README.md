@@ -20,18 +20,7 @@ Built for personal use, for a workflow based on multiple simple workspaces:
 
 ## Installation
 
-### Requirements and compatibility
-
-| Component | Support policy                                                                                                                                          |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Kitty     | 0.50.0 is the supported and tested baseline. Older versions are unsupported; newer versions are best effort until tested.                               |
-| Git       | Required on PATH for Git labels and metadata. Tested with Git 2.56.0; older versions need `rev-parse --path-format` and `worktree list --porcelain -z`. |
-| Linux     | Tested platform.                                                                                                                                        |
-| macOS     | Experimental; full validation on a Mac is pending.                                                                                                      |
-
-fzf is needed only for the separately installed companion picker.
-
-### Install the latest release
+Requires Kitty >= 0.50.0. Tested with Git 2.56.0 on Linux; macOS untested. `fzf` is needed only for the separately installed companion picker.
 
 ```sh
 curl -fsSL https://github.com/mike-ap/kitty-workspaces/releases/latest/download/bootstrap.sh | sh
@@ -46,8 +35,7 @@ curl -fsSL https://github.com/mike-ap/kitty-workspaces/releases/latest/download/
 ## Configuration
 
 Installation creates only the `kitty_workspaces/` package and
-`tab_bar.py.example` in your Kitty configuration root. Entry points and the
-configuration file live inside the package:
+`tab_bar.py.example` in your Kitty configuration root.
 
 - `tab_bar.py.example`: rename to `tab_bar.py` if you have no existing hook;
   otherwise merge its startup code and `draw_title` function into your hook.
@@ -55,6 +43,20 @@ configuration file live inside the package:
   `include kitty_workspaces/kitty-workspaces.conf` to `kitty.conf`. It enables workspace titles and
   visit tracking. Navigation shortcuts and other optional settings are commented;
   uncomment the ones you want.
+
+### Cheatsheet (defaults)
+
+If you uncomment all optional settings in kitty_workspaces/kitty-workspaces.conf,
+these keybinds are enabled:
+
+```text
+ctrl+shift+n     set_tab_title
+ctrl+shift+enter launch --location=vsplit --cwd=current
+ctrl+h           neighboring_window left   (also from nvim when vim-kitty-navigator is present)
+ctrl+j           neighboring_window down   (also from nvim when vim-kitty-navigator is present)
+ctrl+k           neighboring_window up     (also from nvim when vim-kitty-navigator is present)
+ctrl+l           neighboring_window right  (also from nvim when vim-kitty-navigator is present)
+```
 
 Settings belong in `kitty_workspaces.toml` beside `kitty.conf`:
 
@@ -65,50 +67,6 @@ strip_branch_prefix = false
 The default is `true`, hiding leading `feature/`, `fix/`, `bugfix/`, `hotfix/`,
 and `chore/` from branch names. Worktree directory names are unaffected.
 Missing, unreadable, or invalid settings use the default.
-
-## Next agent needing attention
-
-Bind this Kitty action to a shortcut of your choice using `map` in `kitty.conf`:
-
-```text
-kitten kitty_workspaces/kitten.py next-agent
-```
-
-The command focuses the next agent pane reporting `blocked` (`?`) or `error`
-(`!`) through OSC 7501. It cycles in tab/pane order across OS windows in the
-current Kitty instance, starting after the focused pane and wrapping around.
-With no matching panes, focus stays unchanged. It reads the live reports when
-invoked. Kitty may clear an error report when its pane receives focus.
-
-You can also invoke it through remote control:
-
-```sh
-kitten @ kitten /path/to/kitty_workspaces/kitten.py next-agent
-```
-
-It returns `{"window_id": 8, "tab_id": 42}` for the selected pane, or `null`.
-Process discovery runs on the collector interval; newly launched agents may take
-about two seconds to appear.
-
-## MRU switching
-
-Bind the `kitten kitty_workspaces/kitten.py previous-workspace` action to a
-shortcut of your choice. The commented mappings in the configuration are
-examples; replace their shortcut placeholders before enabling them.
-
-The shortcut returns to the most recently visited other workspace, preserving
-its selected pane; repeated presses toggle between two workspaces. Closed tabs
-are discarded and a single workspace stays selected. History the current Kitty
-instance and resets when Kitty exits. Pane changes and losing application focus
-do not count as workspace visits.
-
-When visit metadata is available, the optional Workspace Picker lists recent
-workspaces first, unvisited workspaces in their original order, and the
-workspace containing the picker last. Fuzzy match quality takes precedence over
-recency. The picker loads one snapshot when opened; rows and previews stay
-fixed until it closes, with no polling or manual refresh. Opening or cancelling
-the picker does not count as visiting another workspace. The tab bar keeps its
-existing order.
 
 ## Update
 
@@ -180,6 +138,31 @@ No screen parsing, `claude agents` polling, hooks, API requests, session files,
 or separate completion history are used. Missing reports are Unknown. Terminals
 or multiplexers that prevent protocol negotiation or forwarding cannot supply
 status.
+
+#### Next agent needing attention
+
+Bind this Kitty action to a shortcut of your choice using `map` in `kitty.conf`:
+
+```text
+kitten kitty_workspaces/kitten.py next-agent
+```
+
+The command focuses the next agent pane reporting `blocked` (`?`) or `error`
+(`!`) through OSC 7501. It cycles in tab/pane order across OS windows in the
+current Kitty instance, starting after the focused pane and wrapping around.
+With no matching panes, focus stays unchanged. It reads the live reports when
+invoked. Kitty may clear an error report when its pane receives focus.
+
+You can also invoke it through remote control:
+
+```sh
+kitten @ kitten /path/to/kitty_workspaces/kitten.py next-agent
+```
+
+#### MRU switching
+
+Bind the `kitten kitty_workspaces/kitten.py previous-workspace` action to a
+shortcut of your choice. The shortcut returns to the most recently visited other workspace.
 
 ## Development
 
