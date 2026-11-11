@@ -5,6 +5,8 @@ a release is tagged.
 
 ## Unreleased
 
+## 0.1.3 - 2026-11-11
+
 - Focus the README cheatsheet on next-agent and previous-workspace shortcuts.
 - Separate optional Kitty Workspaces navigation bindings from recommended Kitty
   settings and remove outdated shortcut placeholder instructions.
