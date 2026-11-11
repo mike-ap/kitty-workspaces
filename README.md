@@ -1,6 +1,6 @@
 # Kitty Workspaces
 
-Kitty Workspaces is a no-UI kitten that collects and provides coding agent and
+Kitty Workspaces is a no-UI [Kitty](https://sw.kovidgoyal.net/kitty/) kitten that collects and provides coding agent and
 git worktree/branch state to Kitty tab names. Use it with
 [Kitty Workspace Picker](https://github.com/mike-ap/kitty-workspace-picker)
 for an `fzf` picker for Kitty Workspaces.
