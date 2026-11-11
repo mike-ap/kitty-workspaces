@@ -5,6 +5,8 @@ a release is tagged.
 
 ## Unreleased
 
+## 0.1.2 - 2026-11-11
+
 - Simplify the installation and configuration guide and add an optional shortcut
   cheatsheet.
 - Provide concrete optional shortcuts for next-agent navigation

@@ -1,6 +1,6 @@
 [project]
 name = "kitty-workspaces"
-version = "0.1.1"
+version = "0.1.2"
 description = "Kitty workspaces with project context, agent sessions, naming, and metadata"
 readme = "README.md"
 authors = [{ name = "Michael Apicelli" }]
