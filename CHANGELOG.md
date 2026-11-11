@@ -5,6 +5,12 @@ a release is tagged.
 
 ## Unreleased
 
+- Simplify the installation and configuration guide and add an optional shortcut
+  cheatsheet.
+- Provide concrete optional shortcuts for next-agent navigation
+  (`ctrl+shift+a`) and previous-workspace switching (`ctrl+shift+backspace`),
+  and use `ctrl+shift+n` for the optional tab-title shortcut.
+
 ## 0.1.1 - 2026-11-11
 
 - Simplify publishing with `just release VERSION`: update the project version and
