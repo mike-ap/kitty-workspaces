@@ -56,12 +56,6 @@ configuration file live inside the package:
   visit tracking. Navigation shortcuts and other optional settings are commented;
   uncomment the ones you want.
 
-Each configuration file includes enabling instructions. Reinstalls preserve existing
-configuration files, including edits and symlinks, while replacing the package's
-Python files. Uninstall leaves configuration and the ownership record in place so
-reinstall remains safe; remove the enabled settings and configuration files manually.
-Restart Kitty after enabling them.
-
 Settings belong in `kitty_workspaces.toml` beside `kitty.conf`:
 
 ```toml
