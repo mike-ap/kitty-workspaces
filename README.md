@@ -5,9 +5,11 @@ git worktree/branch state to Kitty tab names. Use it with
 [Kitty Workspace Picker](https://github.com/mike-ap/kitty-workspace-picker)
 for an `fzf` picker for Kitty Workspaces.
 
-<video src="docs/assets/kitty-workspaces-demo.mp4" controls width="100%">
-  <a href="docs/assets/kitty-workspaces-demo.mp4">Watch the screencast</a>
-</video>
+<!-- markdownlint-disable MD034 -->
+
+https://github.com/user-attachments/assets/a824eb3d-98f7-48c0-820f-cb8d9465bad8
+
+<!-- markdownlint-enable MD034 -->
 
 Built for personal use, for a workflow based on multiple simple workspaces:
 
