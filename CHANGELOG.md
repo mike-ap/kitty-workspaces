@@ -5,6 +5,8 @@ a release is tagged.
 
 ## Unreleased
 
+- Add a direct link to Kitty in the README introduction.
+
 ## 0.1.3 - 2026-11-11
 
 - Focus the README cheatsheet on next-agent and previous-workspace shortcuts.
