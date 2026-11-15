@@ -5,7 +5,7 @@ from time import monotonic
 
 from . import worktrees
 
-REFRESH_SECONDS = 10
+REFRESH_SECONDS = 1
 EXPIRY_SECONDS = 30
 
 

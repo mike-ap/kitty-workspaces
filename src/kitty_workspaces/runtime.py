@@ -15,6 +15,7 @@ from time import monotonic, sleep, time
 from .recency import Recency
 
 _state = None
+REFRESH_SECONDS = 0.2
 
 
 def boss_instance():
@@ -74,10 +75,15 @@ def exchange_snapshots(directory, requests):
     """Exchange plain data on a daemon thread; never access Kitty objects here."""
     from .collector import write_json
 
+    previous = None
     while (request := requests.get()) is not None:
         panes, result = request
         try:
-            write_json(directory / "panes.json", panes)
+            # Process cwd discovery still runs in the collector when inputs are
+            # unchanged. Avoid rewriting the input file on every UI timer tick.
+            if panes != previous:
+                write_json(directory / "panes.json", panes)
+                previous = panes
             try:
                 value = json.loads((directory / "snapshot.json").read_text())
             except (OSError, ValueError):
@@ -268,5 +274,5 @@ def start(boss=None):
     _state = state
     atexit.register(state.close)
     # Schedule startup as well as refresh outside draw_title().
-    state.timer = add_timer(state.refresh, 0.5, True)
+    state.timer = add_timer(state.refresh, REFRESH_SECONDS, True)
     return state

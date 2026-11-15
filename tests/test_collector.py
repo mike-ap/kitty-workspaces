@@ -306,6 +306,43 @@ def test_slow_storage_does_not_block_timer_or_queue_more_work(monkeypatch, tmp_p
     assert not state.io_thread.is_alive()
 
 
+def test_exchange_skips_unchanged_writes_but_reads_new_observations(
+    monkeypatch, tmp_path
+):
+    from concurrent.futures import Future
+    from queue import Queue
+    from threading import Thread
+
+    writes = []
+    write_json = collector.write_json
+
+    def record_write(path, value):
+        writes.append(value)
+        write_json(path, value)
+
+    monkeypatch.setattr(collector, "write_json", record_write)
+    requests = Queue()
+    thread = Thread(target=runtime.exchange_snapshots, args=(tmp_path, requests))
+    thread.start()
+    try:
+        for generation, cwd in enumerate(("/first", "/first", "/second")):
+            # Worker observations can change without Kitty's input changing:
+            # e.g. cd in the same shell, or a branch switch in the same cwd.
+            snapshot = {"panes": [{"id": 1, "label": str(generation)}]}
+            write_json(tmp_path / "snapshot.json", snapshot)
+            result = Future()
+            requests.put(([{"id": 1, "cwd": cwd}], result))
+            assert result.result(timeout=2) == snapshot
+        assert writes == [
+            [{"id": 1, "cwd": "/first"}],
+            [{"id": 1, "cwd": "/second"}],
+        ]
+    finally:
+        requests.put(None)
+        thread.join(2)
+    assert not thread.is_alive()
+
+
 def test_close_waits_for_writer_before_removing_private_cache(monkeypatch, tmp_path):
     from threading import Event, Thread
 
@@ -395,7 +432,7 @@ def test_runtime_start_launch_and_cleanup(monkeypatch, tmp_path):
     assert runtime.boss_instance() is boss
     state = runtime.start()
     assert runtime.start() is state
-    assert timers[0][1:] == (0.5, True)
+    assert timers[0][1:] == (0.2, True)
     calls = []
 
     class Process:

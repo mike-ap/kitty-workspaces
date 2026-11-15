@@ -85,9 +85,9 @@ def test_git_refresh_expiry_directory_changes_and_failure(monkeypatch):
         cache.enrich([pane])
         assert pane["branch"] == "main"
         assert calls == ["/demo"]
-        now[0] = 111
+        now[0] = 101.1
         cache.enrich([pane])
-        wait_for(lambda: len(calls) == 2 and cache.results["/demo"][0] == 111)
+        wait_for(lambda: len(calls) == 2 and cache.results["/demo"][0] == 101.1)
         # Stop the observer to simulate an indefinitely blocked next lookup.
         cache.close()
         cache.thread.join(2)

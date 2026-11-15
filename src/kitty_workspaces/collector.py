@@ -14,6 +14,8 @@ from time import monotonic, sleep, time
 from . import agents, worktrees
 from .git_cache import GitCache
 
+POLL_SECONDS = 0.2
+
 
 def write_json(path, value):
     path = Path(path)
@@ -118,7 +120,7 @@ def parent_alive(pid):
         return False
 
 
-def run(output, input_path, parent, interval=2, once=False):
+def run(output, input_path, parent, interval=POLL_SECONDS, once=False):
     stopped = False
 
     def stop(*args):
@@ -173,7 +175,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--parent", type=int, required=True)
-    parser.add_argument("--interval", type=float, default=2)
+    parser.add_argument("--interval", type=float, default=POLL_SECONDS)
     parser.add_argument("--once", action="store_true")
     parser.add_argument(
         "--cleanup",

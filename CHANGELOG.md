@@ -5,6 +5,9 @@ a release is tagged.
 
 ## Unreleased
 
+- Refresh tab names more quickly while keeping process and Git discovery in the
+  background and avoiding unchanged input snapshot writes.
+
 ## 0.1.4 - 2026-11-15
 
 - Add a direct link to Kitty in the README introduction.
