@@ -5,6 +5,8 @@ a release is tagged.
 
 ## Unreleased
 
+## 0.1.5 - 2026-11-20
+
 - Refresh tab names more quickly while keeping process and Git discovery in the
   background and avoiding unchanged input snapshot writes.
 - Verified on Linux with Kitty 0.50.0, Kitty Python 3.14.10, and development
