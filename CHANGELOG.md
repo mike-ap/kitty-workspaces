@@ -7,6 +7,9 @@ a release is tagged.
 
 - Refresh tab names more quickly while keeping process and Git discovery in the
   background and avoiding unchanged input snapshot writes.
+- Verified on Linux with Kitty 0.50.0, Kitty Python 3.14.10, and development
+  Python 3.12.15: all 16 isolated graphical checks passed, including the real
+  Codex CLI 0.169.0 test using a local model fixture.
 
 ## 0.1.4 - 2026-11-15
 
